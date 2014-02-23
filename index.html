@@ -10,11 +10,34 @@
 			background-color: #222222;
     	}
     	header {
-	   		background-image: url('logo-guifibaix-mediateca.png');
-    		background-origin: center;
+    		/*border: 1pt solid red;*/
+    		margin: 0;
+    		padding-left: 12ex;
+    		position: fixed;
+    		top: 0;
+    		left: 0;
+    		right: 0;
+    		z-index: 10;
+	   		background-color: #222222;
+	   		background-image: url('logo-guifibaix-mediateca.svg');
+	   		background-position: left;
     		background-repeat: no-repeat;
-    		background-size: 15ex;
-    		height: 15ex;
+    		background-size: 15ex auto;
+    		min-height: 9ex;
+    		vertical-align: middle;
+    		}
+    	header input {
+    		margin-top: 9px;
+    	}
+    	footer {
+    		position: fixed;
+    		bottom: 0;
+    		left: 0;
+    		right: 0;
+    		width: 100%;
+    		text-align: right;
+	   		background-color: #222222;
+	   		color: #aa3;
     	}
     	.search {
     		/*border: 1pt red solid;*/
@@ -31,10 +54,72 @@
     		border: #000 solid 2pt;
     	}
     	.itembrowser {
+    		padding-top: 9ex;
     		text-align: center;
     		margin-right: auto;
     		margin-left: auto;
     		width: 90%;
+       	}
+       	.itembrowser .mediaitem {
+       		position: relative;
+       		display: inline-block;
+       		width: 200px;
+       		border: 3pt solid black;
+       		margin: 10px;
+       		box-shadow: 2pt 3pt 6pt #500;
+       	}
+       	.itembrowser .mediaitem:hover {
+       		box-shadow: 1pt 2pt 7pt #a7f;
+       	}
+       	.itembrowser .mediaitem img {
+       		display: inline;
+       		width: 100%;
+       	}
+       	.itembrowser .mediaitem .mediadescription {
+       		display: none;
+       	}
+       	.itembrowser .mediaitem:hover .mediadescription {
+       		display: block;
+       		position: absolute;
+       		bottom: 0;
+       		padding: 8px;
+       		opacity: 0.8;
+       		background-color: #333;
+       		font-weight: bold;
+       		color: #ff3;
+       	}
+       	.playvideo {
+       		display: none;
+       	}
+       	.playvideo:target {
+    		z-index: 20;
+       		top: 0;
+       		bottom: 0;
+       		left: 0;
+       		right: 0;
+       		padding: 3ex;
+       		width: 100%;
+       		height: 100%;
+       		display: block;
+       		position: fixed;
+       		background: #222;
+       	}
+       	.playvideo .close-icon {
+       		position: fixed;
+       		right: 0;
+       		width: 2ex;
+       		height: 2ex;
+       		background-image: url('close-button.svg');
+       		background-size: 100%;
+       		font-size: 200%;
+       	}
+       	.playvideo video {
+       		display: block;
+    		margin-right: auto;
+    		margin-left: auto;
+       		max-height: 90%;
+       		max-width: 100%;
+       		min-width: 70%;
        	}
     </style>
 </head>
@@ -42,7 +127,6 @@
   	<header>
 		<form class='search'>
 			<select name='searchkind'>
-				<option value='all'>Todo</option>
 				<option value='movies'>Películas</option>
 				<option value='series'>Series</option>
 				<option value='documentary'>Documentales</option>
@@ -53,6 +137,7 @@
 			<input name='searchtext' placeholder='search...'></input>
 			Ordena por:
 			<select name='searchorder'>
+				<option value='new'>Novedad</option>
 				<option value='popular'>Popularidad</option>
 				<option value='rated'>Valoración</option>
 				<option value='pending'>Las que aún no he visto</option>
@@ -60,11 +145,106 @@
 			</select>
 		</form>
   	</header>
-  	<div class='itembrowser'>
-  	Hello world.
-  	<video controls />
-  	</div>
-  	<footer class='footer'>
-  	</footer>
-  </body>
+	<div class='itembrowser'>
+		<div class='mediaitem'>
+			<a href='#playvideo1'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BMjAyOTUzMTcxN15BMl5BanBnXkFtZTgwMjkyOTc1MDE@._V1_SX214_.jpg"/>
+			</a>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+		<div class='mediaitem'>
+			<a href='#playvideo2'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BNTA5NzY4MTM0N15BMl5BanBnXkFtZTcwMTA0MDkxOQ@@._V1_SX214_.jpg"/>
+			</a>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+		<div class='mediaitem'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BMTM4Mjg5ODEzMV5BMl5BanBnXkFtZTcwMDc3NDk0NA@@._V1_SX214_.jpg"/>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+		<div class='mediaitem'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BMjM2NzUzNzQwNl5BMl5BanBnXkFtZTgwMDQ1MDkwMTE@._V1_SX214_.jpg"/>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+		<div class='mediaitem'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BNjkxMTc0MDc4N15BMl5BanBnXkFtZTgwODUyNTI1MDE@._V1_SX214_.jpg"/>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+		<div class='mediaitem'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_SX214_.jpg"/>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+		<div class='mediaitem'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BMTg4MDk1ODExN15BMl5BanBnXkFtZTgwNzIyNjg3MDE@._V1_SX214_.jpg"/>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+		<div class='mediaitem'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BMjA4MDAxMjI1NV5BMl5BanBnXkFtZTgwMjc3ODkwMDE@._V1_SX214_.jpg"/>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+		<div class='mediaitem'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BMTQ1ODM1Nzc1OF5BMl5BanBnXkFtZTcwMDI3MDg4NA@@._V1_SX214_.jpg"/>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+		<div class='mediaitem'>
+			<img src="http://ia.media-imdb.com/images/M/MV5BMTg3NDI5Mjg5MF5BMl5BanBnXkFtZTgwNzI2OTIzMDE@._V1_SX214_.jpg"/>
+			<div class='mediatitle'>
+			</div>
+			<div class='mediadescription'>
+				Las aventuras y desventuras de una colla de arreplegaos
+		    </div>
+		</div>
+	</div>
+	<div  id='playvideo1' class='playvideo'>
+		<a class='close-icon' href='#'></a>
+		<video controls poster='logo-guifibaix-mediateca.png'>
+			<source src='http://video.webmfiles.org/big-buck-bunny_trailer.webm' type='video/webm' />
+		</video>
+	</div>
+	<div  id='playvideo2' class='playvideo'>
+		<a class='close-icon' href='#'></a>
+		<video controls poster='logo-guifibaix-mediateca.png'>
+			<source src='http://video.webmfiles.org/elephants-dream.webm' type='video/webm' />
+		</video>
+	</div>
+	<footer class='footer'>
+		Mediateca GuifiBaix
+	</footer>
+</body>
 </html>
