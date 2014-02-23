@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48px"
+   height="48px"
+   id="svg2985"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="close-button.svg"
+   inkscape:export-filename="/home/vokimon/Documents/guifibaix/mediateca/close-button.png"
+   inkscape:export-xdpi="14"
+   inkscape:export-ydpi="14">
+  <defs
+     id="defs2987" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="3.7174705"
+     inkscape:cy="14.684734"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1680"
+     inkscape:window-height="983"
+     inkscape:window-x="-2"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata2990">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <rect
+       style="color:#000000;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:#5a1528;stroke-width:1.24180412;stroke-opacity:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3765"
+       width="46.758198"
+       height="46.758194"
+       x="0.62090206"
+       y="0.62090302"
+       ry="4.8294845" />
+    <path
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#5a1528;stroke-width:1.24180412;stroke-opacity:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 10.686605,4.6817975 c -1.2345081,0 -2.4690162,0.4898918 -3.4149609,1.435836 L 5.4865506,7.902727 c -1.8918885,1.8918881 -1.8918885,4.938034 0,6.829923 l 9.6239824,9.623982 -9.6239824,9.585176 c -1.8918885,1.891888 -1.8918885,4.938034 0,6.829923 l 1.7850935,1.785092 c 1.8918893,1.89189 4.9380339,1.89189 6.8299219,0 l 9.623983,-9.585175 9.585177,9.585175 c 1.891888,1.89189 4.938035,1.89189 6.829923,0 l 1.8239,-1.785092 c 1.891889,-1.891889 1.891889,-4.938035 0,-6.829923 l -9.623982,-9.585176 9.623982,-9.623982 c 1.891889,-1.891889 1.891889,-4.9380349 0,-6.829923 l -1.8239,-1.7850935 c -1.891888,-1.8918887 -4.938035,-1.8918887 -6.829923,0 L 23.725549,15.702809 14.101566,6.1176335 C 13.155624,5.1716893 11.921115,4.6817975 10.686605,4.6817975 z"
+       id="rect2993"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>
