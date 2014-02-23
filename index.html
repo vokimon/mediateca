@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+	<meta charset="utf-8">
+	<title>mediateca guifibaix</title>
+	<meta content="">
+	<style>
+    	html {
+			color: #eeeeee;
+			background-color: #222222;
+    	}
+    	header {
+	   		background-image: url('logo-guifibaix-mediateca.png');
+    		background-origin: center;
+    		background-repeat: no-repeat;
+    		background-size: 15ex;
+    		height: 15ex;
+    	}
+    	.search {
+    		/*border: 1pt red solid;*/
+    		width:100%;
+    		text-align: center;
+    	}
+    	.search input,
+    	.search select
+    	{
+    		padding: 1ex;
+    		color: #fff;
+    		background: #400000;
+    		border-radius: 5pt;
+    		border: #000 solid 2pt;
+    	}
+    	.itembrowser {
+    		text-align: center;
+    		margin-right: auto;
+    		margin-left: auto;
+    		width: 90%;
+       	}
+    </style>
+</head>
+<body>
+  	<header>
+		<form class='search'>
+			<select name='searchkind'>
+				<option value='all'>Todo</option>
+				<option value='movies'>Películas</option>
+				<option value='series'>Series</option>
+				<option value='documentary'>Documentales</option>
+				<option value='music'>Música</option>
+				<option value='books'>Libros</option>
+				<option value='comics'>Cómics</option>
+			</select>
+			<input name='searchtext' placeholder='search...'></input>
+			Ordena por:
+			<select name='searchorder'>
+				<option value='popular'>Popularidad</option>
+				<option value='rated'>Valoración</option>
+				<option value='pending'>Las que aún no he visto</option>
+				<option value='preferred'>Mis preferidas</option>
+			</select>
+		</form>
+  	</header>
+  	<div class='itembrowser'>
+  	Hello world.
+  	<video controls />
+  	</div>
+  	<footer class='footer'>
+  	</footer>
+  </body>
+</html>
