@@ -4,127 +4,201 @@
 	<meta charset="utf-8">
 	<title>mediateca guifibaix</title>
 	<meta content="">
+<!--	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>-->
+<!--	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>-->
+<!--	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />-->
+	<script src="jquery-2.1.0.min.js"></script>
+	<script src="jquery-ui-1.10.4.min.js"></script>
+	<link rel="stylesheet" href="jquery-ui-1.10.4.css" />
 	<style>
-    	html {
+		@keyframes fadein {
+			from {opacity: 0;}
+			to {opacity: 1;}
+		}
+		@-webkit-keyframes fadein {
+			from {-webkit-opacity: 0;}
+			to {-webkit-opacity: 1;}
+		}
+		@keyframes fadeout {
+			from {opacity: 1;}
+			to {opacity: 0;}
+		}
+		@-webkit-keyframes fadeout {
+			from {-webkit-opacity: 1;}
+			to {-webkit-opacity: 0;}
+		}
+		body {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			margin: 0;
+			border: 2pt black solid;
 			color: #eeeeee;
 			background-color: #222222;
-    	}
-    	header {
-    		/*border: 1pt solid red;*/
-    		margin: 0;
-    		padding-left: 12ex;
-    		position: fixed;
-    		top: 0;
-    		left: 0;
-    		right: 0;
-    		z-index: 10;
-	   		background-color: #222222;
-	   		background-image: url('logo-guifibaix-mediateca.svg');
-	   		background-position: left;
-    		background-repeat: no-repeat;
-    		background-size: 15ex auto;
-    		min-height: 9ex;
-    		vertical-align: middle;
-    		}
-    	header input {
-    		margin-top: 9px;
-    	}
-    	footer {
-    		position: fixed;
-    		bottom: 0;
-    		left: 0;
-    		right: 0;
-    		width: 100%;
-    		text-align: right;
-	   		background-color: #222222;
-	   		color: #aa3;
-    	}
-    	.search {
-    		/*border: 1pt red solid;*/
-    		width:100%;
-    		text-align: center;
-    	}
-    	.search input,
-    	.search select
-    	{
-    		padding: 1ex;
-    		color: #fff;
-    		background: #400000;
-    		border-radius: 5pt;
-    		border: #000 solid 2pt;
-    	}
-    	.itembrowser {
-    		padding-top: 9ex;
-    		text-align: center;
-    		margin-right: auto;
-    		margin-left: auto;
-    		width: 90%;
-       	}
-       	.itembrowser .mediaitem {
-       		position: relative;
-       		display: inline-block;
-       		width: 200px;
-       		border: 3pt solid black;
-       		margin: 10px;
-       		box-shadow: 2pt 3pt 6pt #500;
-       	}
-       	.itembrowser .mediaitem:hover {
-       		box-shadow: 1pt 2pt 7pt #a7f;
-       	}
-       	.itembrowser .mediaitem img {
-       		display: inline;
-       		width: 100%;
-       	}
-       	.itembrowser .mediaitem .mediadescription {
-       		display: none;
-       	}
-       	.itembrowser .mediaitem:hover .mediadescription {
-       		display: block;
-       		position: absolute;
-       		bottom: 0;
-       		padding: 8px;
-       		opacity: 0.8;
-       		background-color: #333;
-       		font-weight: bold;
-       		color: #ff3;
-       	}
-       	.playvideo {
-       		display: none;
-       	}
-       	.playvideo:target {
-    		z-index: 20;
-       		top: 0;
-       		bottom: 0;
-       		left: 0;
-       		right: 0;
-       		padding: 3ex;
-       		width: 100%;
-       		height: 100%;
-       		display: block;
-       		position: fixed;
-       		background: #222;
-       	}
-       	.playvideo .close-icon {
-       		position: fixed;
-       		right: 0;
-       		width: 2ex;
-       		height: 2ex;
-       		background-image: url('close-button.svg');
-       		background-size: 100%;
-       		font-size: 200%;
-       	}
-       	.playvideo video {
-       		display: block;
-    		margin-right: auto;
-    		margin-left: auto;
-       		max-height: 90%;
-       		max-width: 100%;
-       		min-width: 70%;
-       	}
-    </style>
+		}
+		header {
+			/*border: 1pt solid red;*/
+			margin: 0;
+			padding-left: 12ex;
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 10;
+			background-color: #222222;
+			background-image: url('logo-guifibaix-mediateca.svg');
+			background-position: left;
+			background-repeat: no-repeat;
+			background-size: 15ex auto;
+			min-height: 9ex;
+			vertical-align: middle;
+		}
+		header input {
+			margin-top: 9px;
+		}
+		footer {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			width: 100%;
+			text-align: right;
+			background-color: #222222;
+			color: #aa3;
+		}
+		.search {
+			/*border: 1pt red solid;*/
+			width:100%;
+			text-align: center;
+		}
+		.search input,
+		.search select
+		{
+			padding: 1ex;
+			color: #fff;
+			background: #400000;
+			border-radius: 5pt;
+			border: #000 solid 2pt;
+		}
+		.itembrowser {
+			padding-top: 9ex;
+			text-align: center;
+			margin-right: auto;
+			margin-left: auto;
+			width: 90%;
+		}
+		.itembrowser .mediaitem {
+			position: relative;
+			display: inline-block;
+			width: 200px;
+			height: 300px;
+			bottom: 0px;
+			border: 3pt solid black;
+			margin: 10px;
+			box-shadow: 2pt 3pt 6pt #500;
+		}
+		.itembrowser .mediaitem:hover {
+			box-shadow: 1pt 2pt 7pt #a7f;
+		}
+		.search :focus,
+		.itembrowser :focus {
+			box-shadow: 0pt 0pt 9pt #a7f;
+		}
+		.itembrowser .mediaitem {
+		}
+		.itembrowser .mediaitem img {
+			display: inline;
+			width: 100%;
+			height: 300px;
+			object-fit: fill;
+		}
+		.itembrowser .mediaitem .mediadescription {
+			display: none;
+		}
+		.itembrowser .mediaitem:hover .mediadescription {
+			display: block;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			padding: 8px;
+			opacity: 0.8;
+			background-color: #333;
+			font-weight: bold;
+			color: #ff3;
+		}
+		.playvideo {
+			display: none;
+		}
+		.playvideo:target {
+			opacity: 1;
+			z-index: 20;
+			top: 3px;
+			bottom: 3px;
+			left: 3px;
+			right: 3px;
+			height:96%;
+			margin: 0;
+			padding: 0ex;
+			padding-top: 1ex;
+			display: block;
+			position: fixed;
+			background: #222;
+			vertical-align: middle;
+			animation: fadein 1s;
+			-webkit-animation: fadein 1s;
+		}
+		.playvideo .close-icon {
+			position: fixed;
+			right: 0;
+			width: 2ex;
+			height: 2ex;
+			background-image: url('close-button.svg');
+			background-size: 100%;
+			font-size: 200%;
+			z-index: 30;
+		}
+		.playvideo video {
+			display: block;
+			margin-right: auto;
+			margin-left: auto;
+			left: 0;
+			right: 0;
+			max-height: 100%;
+			width: 95%;
+		}
+	</style>
+<style type="text/css">
+.ui-menu-item .imdbTitle{
+    font-size: 0.9em;
+    font-weight: bold;
+}
+.ui-menu-item .imdbCast{
+    font-size: 0.7em;
+    font-style: italic;
+    line-height: 110%;
+    color: #666;
+}
+.ui-menu-item .imdbImage{
+    float: left;
+    margin-right: 5px;
+}
+.ui-menu-item .clear{
+    clear: both;
+}
+</style>
 </head>
 <body>
-  	<header>
+	<header>
+		<form id="form" name="form" method="get" action="http://www.imdb.com/find" style="text-align:center; margin-bottom:20px;z-index:50;">
+			Search: 
+			<input name="q" id="q" type="text" size="50" />
+			<input name="s" value="all" type="hidden" />
+			<input name="submit" type="submit" value="Search" />
+		</form>
 		<form class='search'>
 			<select name='searchkind'>
 				<option value='movies'>Películas</option>
@@ -144,107 +218,146 @@
 				<option value='preferred'>Mis preferidas</option>
 			</select>
 		</form>
-  	</header>
+	</header>
 	<div class='itembrowser'>
-		<div class='mediaitem'>
-			<a href='#playvideo1'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BMjAyOTUzMTcxN15BMl5BanBnXkFtZTgwMjkyOTc1MDE@._V1_SX214_.jpg"/>
-			</a>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
-		<div class='mediaitem'>
-			<a href='#playvideo2'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BNTA5NzY4MTM0N15BMl5BanBnXkFtZTcwMTA0MDkxOQ@@._V1_SX214_.jpg"/>
-			</a>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
-		<div class='mediaitem'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BMTM4Mjg5ODEzMV5BMl5BanBnXkFtZTcwMDc3NDk0NA@@._V1_SX214_.jpg"/>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
-		<div class='mediaitem'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BMjM2NzUzNzQwNl5BMl5BanBnXkFtZTgwMDQ1MDkwMTE@._V1_SX214_.jpg"/>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
-		<div class='mediaitem'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BNjkxMTc0MDc4N15BMl5BanBnXkFtZTgwODUyNTI1MDE@._V1_SX214_.jpg"/>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
-		<div class='mediaitem'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_SX214_.jpg"/>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
-		<div class='mediaitem'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BMTg4MDk1ODExN15BMl5BanBnXkFtZTgwNzIyNjg3MDE@._V1_SX214_.jpg"/>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
-		<div class='mediaitem'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BMjA4MDAxMjI1NV5BMl5BanBnXkFtZTgwMjc3ODkwMDE@._V1_SX214_.jpg"/>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
-		<div class='mediaitem'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BMTQ1ODM1Nzc1OF5BMl5BanBnXkFtZTcwMDI3MDg4NA@@._V1_SX214_.jpg"/>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
-		<div class='mediaitem'>
-			<img src="http://ia.media-imdb.com/images/M/MV5BMTg3NDI5Mjg5MF5BMl5BanBnXkFtZTgwNzI2OTIzMDE@._V1_SX214_.jpg"/>
-			<div class='mediatitle'>
-			</div>
-			<div class='mediadescription'>
-				Las aventuras y desventuras de una colla de arreplegaos
-		    </div>
-		</div>
 	</div>
 	<div  id='playvideo1' class='playvideo'>
 		<a class='close-icon' href='#'></a>
-		<video controls poster='logo-guifibaix-mediateca.png'>
-			<source src='http://video.webmfiles.org/big-buck-bunny_trailer.webm' type='video/webm' />
+		<video preload='none' controls poster='logo-guifibaix-mediateca.png'>
+<!--			<source
+				src='http://video.webmfiles.org/big-buck-bunny_trailer.webm'
+				type='video/webm'
+				media="all and (max-width:480px)"
+				/>
+-->
+			<source
+				src='http://video.webmfiles.org/big-buck-bunny_trailer.webm'
+				type='video/webm'
+				/>
 		</video>
 	</div>
 	<div  id='playvideo2' class='playvideo'>
 		<a class='close-icon' href='#'></a>
-		<video controls poster='logo-guifibaix-mediateca.png'>
-			<source src='http://video.webmfiles.org/elephants-dream.webm' type='video/webm' />
+		<video preload='none' controls poster='logo-guifibaix-mediateca.png'>
+			<source 
+				src='http://video.webmfiles.org/elephants-dream.webm'
+				type='video/webm'
+				/>
 		</video>
 	</div>
 	<footer class='footer'>
 		Mediateca GuifiBaix
 	</footer>
+
+<script type="text/javascript">
+
+$(function(){
+    $("#q").focus(); //Focus on search field
+    $("#q").autocomplete({
+        minLength: 0,
+        delay:5,
+        source: baseproxyurl+"imdbsuggest.php",
+        focus: function( event, ui ) {
+            $(this).val( ui.item.value );
+            return false;
+        },
+        select: function( event, ui ) {
+            $(this).val( ui.item.value );
+            return false;
+        }
+    }).data("ui-autocomplete")._renderItem = function( ul, item ) {
+        return $("<li></li>")
+            .data( "item.autocomplete", item )
+            .append(
+				"<a>" +
+				(item.img?
+					"<img class='imdbImage' src='"+baseproxyurl+"imdbimage.php?url=" +
+						encodeURIComponent(item.img) + "' />":"") + 
+				"<span class='imdbTitle'>" + item.label + "</span>" +
+				(item.cast?"<br /><span class='imdbCast'>" + item.cast + "</span>":"") +
+				"<div class='clear'></div>"+
+				"</a>" )
+            .appendTo( ul );
+    };
+});
+
+
+
+var baseproxyurl="http://canvoki.net/mediateca/";
+
+function clearMediaItems() {
+	$(".itembrowser").empty();
+}
+
+function loadMediaItem(id) {
+	var item = $('.mediaitem#'+id);
+	$.getJSON("http://www.omdbapi.com/?r=JSON&i="+encodeURIComponent(id) ,function(result){
+//		console.log(result);
+		if (result.Poster != "N/A" )
+			$(item).find("img").attr("src",
+				baseproxyurl+"imdbimage.php?url="+encodeURIComponent(result.Poster));
+		$(item).find(".mediadescription").html(result.Title+" ["+ result.Type +"] ("+result.Year+")");
+		console.log("Reloading "+id);
+	}).fail(function() {
+		alert("Detailed info query for "+id+" failed");
+	});
+}
+
+function addMediaItem(id) {
+	$(".itembrowser").append(
+"	<div class='mediaitem' id='"+id+"'>\n"+
+"		<a href='http://www.imdb.com/title/" + id + "/' target='blank'>\n"+
+"		<img src='logo-guifibaix-mediateca.svg'/>\n"+
+"		</a>\n"+
+"		<div class='mediatitle'>\n"+
+"		</div>\n"+
+"		<div class='mediadescription'>\n"+
+"			Loading info...\n"+
+"		</div>\n"+
+"	</div>\n"+
+	"");
+	loadMediaItem(id);
+}
+
+function addSearchResultsMediaItems(query)
+{
+	var searchUri = "search.json?callback=";
+	var searchUri = "http://www.imdb.com/xml/find?nr=1&tt=on&json=1&q="+encodeURIComponent(query);
+	var searchUri = baseproxyurl + "proxy.php?callback=boo&url=" + encodeURIComponent(searchUri);
+	var searchUri = baseproxyurl + "imdbsuggest.php?q=" + encodeURIComponent(query);
+	console.log(searchUri);
+
+	$.getJSON(searchUri, function(searchResult) {
+		$.each((searchResult), function(index, list) {
+			$.each(list, function(type, item) {
+				addMediaItem(item.id);
+			});
+		});
+	}).error(function(p1, p2, p3) {
+		console.log(p1);
+		console.log(p2);
+		console.log(p3);
+		console.log(p1.getResponseHeader());
+	});
+}
+
+$(function () {
+	clearMediaItems();
+
+	var initialItems = [
+		'tt0093870',
+		'tt0944947',
+		'tt0079501',
+		'tt1375666',
+	];
+
+	$.each(initialItems, function(index, id) {
+		addMediaItem(id);
+	});
+
+	addSearchResultsMediaItems("thor");
+});
+
+</script>
 </body>
 </html>
