@@ -193,12 +193,6 @@
 </head>
 <body>
 	<header>
-		<form id="form" name="form" method="get" action="http://www.imdb.com/find" style="text-align:center; margin-bottom:20px;z-index:50;">
-			Search: 
-			<input name="q" id="q" type="text" size="50" />
-			<input name="s" value="all" type="hidden" />
-			<input name="submit" type="submit" value="Search" />
-		</form>
 		<form class='search'>
 			<select name='searchkind'>
 				<option value='movies'>Películas</option>
@@ -207,8 +201,10 @@
 				<option value='music'>Música</option>
 				<option value='books'>Libros</option>
 				<option value='comics'>Cómics</option>
+				<input name="s" value="all" type="hidden" />
 			</select>
-			<input name='searchtext' placeholder='search...'></input>
+			<input name='searchtext' id='searchtext' placeholder='search...'></input>
+			<input name="s" value="all" type="hidden" />
 			Ordena por:
 			<select name='searchorder'>
 				<option value='new'>Novedad</option>
@@ -252,8 +248,8 @@
 <script type="text/javascript">
 
 $(function(){
-    $("#q").focus(); //Focus on search field
-    $("#q").autocomplete({
+    $("#searchtext").focus(); //Focus on search field
+    $("#searchtext").autocomplete({
         minLength: 0,
         delay:5,
         source: baseproxyurl+"imdbsuggest.php",
@@ -286,24 +282,28 @@ $(function(){
 var baseproxyurl="http://canvoki.net/mediateca/";
 
 function clearMediaItems() {
+	console.log("Clearing media items");
 	$(".itembrowser").empty();
+	console.log("Clearing media items DONE");
 }
 
 function loadMediaItem(id) {
+	console.log("Scheduling load for "+id);
 	var item = $('.mediaitem#'+id);
-	$.getJSON("http://www.omdbapi.com/?r=JSON&i="+encodeURIComponent(id) ,function(result){
-//		console.log(result);
+	$.getJSON("http://www.omdbapi.com/?r=JSON&i="+encodeURIComponent(id), function(result){
+		console.log("Loading data for "+id);
 		if (result.Poster != "N/A" )
 			$(item).find("img").attr("src",
 				baseproxyurl+"imdbimage.php?url="+encodeURIComponent(result.Poster));
 		$(item).find(".mediadescription").html(result.Title+" ["+ result.Type +"] ("+result.Year+")");
-		console.log("Reloading "+id);
 	}).fail(function() {
-		alert("Detailed info query for "+id+" failed");
+		alert("Load for "+id+" failed");
 	});
+	console.log("Scheduled load for " + id);
 }
 
 function addMediaItem(id) {
+	console.log("Adding widget for " + id );
 	$(".itembrowser").append(
 "	<div class='mediaitem' id='"+id+"'>\n"+
 "		<a href='http://www.imdb.com/title/" + id + "/' target='blank'>\n"+
@@ -317,34 +317,63 @@ function addMediaItem(id) {
 "	</div>\n"+
 	"");
 	loadMediaItem(id);
+	console.log("Added widget for " + id );
 }
+
+function proxiedCall(uri, done, settings)
+{
+	function log(whatever) { if (verbose) console.log(whatever); }
+
+	var proxiedUri= baseproxyurl + "proxy.php?callback=?&url=" + encodeURIComponent(uri);
+	var verbose = 'verbose' in settings && settings.verbose;
+	var failed = 'failed' in settings ? settings.failed : console.log;
+
+	log("Starting: " + proxiedUri);
+
+	$.getJSON(proxiedUri, function(result) {
+		log("Success " + proxiedUri);
+		log(result);
+		if (result.status.http_code == 200)
+			done(result.contents);
+		else
+			failed(result.status);
+	}).fail(function(code, text, headers) {
+		log("Failed " + proxiedUri);
+		log(text);
+		log(headers);
+		log(code);
+	}).always(function(code, text, headers) {
+		log("Done " + proxiedUri);
+	});
+	log("Started: " + proxiedUri);
+}
+
 
 function addSearchResultsMediaItems(query)
 {
-	var searchUri = "search.json?callback=";
-	var searchUri = "http://www.imdb.com/xml/find?nr=1&tt=on&json=1&q="+encodeURIComponent(query);
-	var searchUri = baseproxyurl + "proxy.php?callback=boo&url=" + encodeURIComponent(searchUri);
-	var searchUri = baseproxyurl + "imdbsuggest.php?q=" + encodeURIComponent(query);
-	console.log(searchUri);
+	proxiedCall("http://www.imdb.com/xml/find?nr=1&tt=on&json=1&q="+encodeURIComponent(query),
+		function (searchResult) {
+			console.log("Doing!!");
+			$.each((searchResult), function(index, list) {
+				$.each(list, function(type, item) {
+					addMediaItem(item.id);
+				});
+			})
+		}, {verbose: false});
+}
 
-	$.getJSON(searchUri, function(searchResult) {
-		$.each((searchResult), function(index, list) {
-			$.each(list, function(type, item) {
-				addMediaItem(item.id);
-			});
-		});
-	}).error(function(p1, p2, p3) {
-		console.log(p1);
-		console.log(p2);
-		console.log(p3);
-		console.log(p1.getResponseHeader());
-	});
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
 }
 
 $(function () {
 	clearMediaItems();
 
-	var initialItems = [
+	var initialItems = [];[
 		'tt0093870',
 		'tt0944947',
 		'tt0079501',
@@ -354,8 +383,8 @@ $(function () {
 	$.each(initialItems, function(index, id) {
 		addMediaItem(id);
 	});
-
-	addSearchResultsMediaItems("thor");
+	$("#searchtext").attr("value", getUrlVars().searchtext);
+	addSearchResultsMediaItems(getUrlVars().searchtext);
 });
 
 </script>

@@ -1,4 +1,4 @@
-{
+boo({
 "title_popular": [
 { "id":"tt0800369", "title":"Thor", "name":"","title_description":"2011,     <a href='/name/nm0000110/'>Kenneth Branagh</a>...","episode_title":"","description":"2011,     <a href='/name/nm0000110/'>Kenneth Branagh</a>..."},
 { "id":"tt1981115", "title":"Thor: The Dark World", "name":"","title_description":"2013,     <a href='/name/nm0851930/'>Alan Taylor</a>","episode_title":"","description":"2013,     <a href='/name/nm0851930/'>Alan Taylor</a>"}
@@ -37,4 +37,4 @@
 { "id":"tt2616140", "title":"Thor: A XXX Parody", "name":"","title_description":"2012 video,     <a href='/name/nm1699742/'>Jordan Septo</a>","episode_title":"","description":"2012 video,     <a href='/name/nm1699742/'>Jordan Septo</a>"},
 { "id":"tt3311752", "title":"Thor XXX: An Axel Braun Parody", "name":"","title_description":"2013 video,     <a href='/name/nm1345701/'>Axel Braun</a>","episode_title":"","description":"2013 video,     <a href='/name/nm1345701/'>Axel Braun</a>"}
 ]
-}
+})
