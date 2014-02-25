@@ -74,6 +74,10 @@
 			width:100%;
 			text-align: center;
 		}
+		.search input
+		{
+			width: 50%;
+		}
 		.search input,
 		.search select
 		{
@@ -130,6 +134,59 @@
 			font-weight: bold;
 			color: #ff3;
 		}
+
+		.extendedinfo {
+			display: block;
+			position: fixed;
+			right: 0;
+			left: 0;
+			top: 100%;
+			bottom: -100%;
+			height: 70%;
+			width: 80%;
+			z-index: 15;
+			padding: 3%;
+			margin: 5%;
+			box-shadow: 0px 0px 8px white;
+			border: 5px solid white;
+			background: #333;
+			opacity: 0.2;
+			transition: left 1s, top 1s, bottom 1s, right 1s, opacity 0.5s;
+		}
+		.extendedinfo.open {
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			opacity: 1;
+			transition: left 1s, top 1s, bottom 1s, right 1s, opacity 0.5s;
+		}
+		.extendedinfo .close-icon {
+			position: absolute;
+			right: -2ex;
+			top: -2ex;
+			width: 4ex;
+			height: 4ex;
+			background-image: url('close-button.svg');
+			background-size: 100%;
+			font-size: 150%;
+			z-index: 30;
+		}
+		.extendedinfoimage {
+			float: right;
+			width: 400px;
+			height: 600px;
+		}
+		.extendedinfotitle {
+			color: #733;
+			padding: 15px 20px;
+			background-color: #111;
+			border-radius: 10px;
+		}
+		.extendedinfo b {
+			color: #863;
+		}
+
 		.playvideo {
 			display: none;
 		}
@@ -170,26 +227,34 @@
 			max-height: 100%;
 			width: 95%;
 		}
+		
+		/* Search */
+		.ui-menu-item .imdbTitle{
+			font-size: 0.9em;
+			font-weight: bold;
+		}
+		.ui-menu-item .imdbCast{
+			font-size: 0.7em;
+			font-style: italic;
+			line-height: 110%;
+			color: #666;
+		}
+		.ui-menu-item .imdbImage{
+			float: left;
+			margin-right: 5px;
+		}
+		.ui-menu-item .clear{
+			clear: both;
+		}
+		img.poster {
+			/*border: 1pt solid red;*/
+			background-image: url('logo-guifibaix-mediateca.svg');
+			background-color: #222;
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
 	</style>
-<style type="text/css">
-.ui-menu-item .imdbTitle{
-    font-size: 0.9em;
-    font-weight: bold;
-}
-.ui-menu-item .imdbCast{
-    font-size: 0.7em;
-    font-style: italic;
-    line-height: 110%;
-    color: #666;
-}
-.ui-menu-item .imdbImage{
-    float: left;
-    margin-right: 5px;
-}
-.ui-menu-item .clear{
-    clear: both;
-}
-</style>
 </head>
 <body>
 	<header>
@@ -241,11 +306,59 @@
 				/>
 		</video>
 	</div>
+	<div class="extendedinfo">
+		<a class='close-icon' onclick="closeExtendedInfo()"></a>
+		<img class="extendedinfoimage poster"></img>
+		<h2 class='extendedinfotitle'></h2>
+		<ul class='extendedinfodata' />
+		<div class='extendedinfoactions'>
+		</div>
+	</div>
 	<footer class='footer'>
 		Mediateca GuifiBaix
 	</footer>
 
 <script type="text/javascript">
+
+function showExtendedInfo(id)
+{
+	$(".extendedinfo").addClass("open");
+	$.getJSON("http://www.omdbapi.com/?r=JSON&i="+encodeURIComponent(id), function(result){
+		var mutedkeys = [
+			"Title",
+			"Type",
+			"Year",
+			"imdbID",
+		];
+		var sortedkeys = [
+			"Genre",
+			"Plot",
+			"Director",
+			"Writer",
+			"Actors",
+		];
+		var info = $(".extendedinfodata");
+		$.each(sortedkeys, function(index, key) {
+			if (!(key in result)) return;
+			info.append("<li><b>"+key+":</b> "+result[key]+"</li>");
+		});
+		$.each(result, function(key, value) {
+			if ($.inArray(key, sortedkeys)) return;
+			if ($.inArray(key, mutedkeys)) return;
+			info.append("<li><b>"+key+":</b> "+value+"</li>");
+		});
+		$(".extendedinfoimage").attr("src",
+			baseproxyurl+"imdbimage.php?url="+encodeURIComponent(result.Poster));
+		$(".extendedinfotitle").text(result.Title + " ("+result.Year+") ["+result.Type+"]");
+	});
+}
+function closeExtendedInfo()
+{
+	$(".extendedinfo").removeClass("open");
+	$(".extendedinfodata").empty();
+	$(".extendedinfoimage").attr("src","");
+}
+
 
 $(function(){
     $("#searchtext").focus(); //Focus on search field
@@ -277,21 +390,19 @@ $(function(){
     };
 });
 
-
-
 var baseproxyurl="http://canvoki.net/mediateca/";
 
 function clearMediaItems() {
-	console.log("Clearing media items");
+//	console.log("Clearing media items");
 	$(".itembrowser").empty();
-	console.log("Clearing media items DONE");
+//	console.log("Clearing media items DONE");
 }
 
 function loadMediaItem(id) {
-	console.log("Scheduling load for "+id);
+//	console.log("Scheduling load for "+id);
 	var item = $('.mediaitem#'+id);
 	$.getJSON("http://www.omdbapi.com/?r=JSON&i="+encodeURIComponent(id), function(result){
-		console.log("Loading data for "+id);
+//		console.log("Loading data for "+id);
 		if (result.Poster != "N/A" )
 			$(item).find("img").attr("src",
 				baseproxyurl+"imdbimage.php?url="+encodeURIComponent(result.Poster));
@@ -299,34 +410,35 @@ function loadMediaItem(id) {
 	}).fail(function() {
 		alert("Load for "+id+" failed");
 	});
-	console.log("Scheduled load for " + id);
+//	console.log("Scheduled load for " + id);
 }
 
 function addMediaItem(id) {
 	console.log("Adding widget for " + id );
 	$(".itembrowser").append(
 "	<div class='mediaitem' id='"+id+"'>\n"+
-"		<a href='http://www.imdb.com/title/" + id + "/' target='blank'>\n"+
-"		<img src='logo-guifibaix-mediateca.svg'/>\n"+
-"		</a>\n"+
+"		<img class='poster' src='bad.png'/>\n"+
 "		<div class='mediatitle'>\n"+
 "		</div>\n"+
 "		<div class='mediadescription'>\n"+
 "			Loading info...\n"+
 "		</div>\n"+
 "	</div>\n"+
-	"");
+	"")
+	$("#"+id).click(function(event) {
+		showExtendedInfo(id);
+	});
 	loadMediaItem(id);
-	console.log("Added widget for " + id );
+//	console.log("Added widget for " + id );
 }
 
 function proxiedCall(uri, done, settings)
 {
-	function log(whatever) { if (verbose) console.log(whatever); }
 
 	var proxiedUri= baseproxyurl + "proxy.php?callback=?&url=" + encodeURIComponent(uri);
-	var verbose = 'verbose' in settings && settings.verbose;
+	var verbose = 'verbose' in settings && settings.verbose==true;
 	var failed = 'failed' in settings ? settings.failed : console.log;
+	function log(whatever) { if (verbose) console.log(whatever); }
 
 	log("Starting: " + proxiedUri);
 
@@ -353,7 +465,7 @@ function addSearchResultsMediaItems(query)
 {
 	proxiedCall("http://www.imdb.com/xml/find?nr=1&tt=on&json=1&q="+encodeURIComponent(query),
 		function (searchResult) {
-			console.log("Doing!!");
+//			console.log("Doing!!");
 			$.each((searchResult), function(index, list) {
 				$.each(list, function(type, item) {
 					addMediaItem(item.id);
@@ -373,19 +485,24 @@ function getUrlVars() {
 $(function () {
 	clearMediaItems();
 
-	var initialItems = [];[
+	var searchtext = getUrlVars().searchtext;
+	if (searchtext)
+	{
+		$("#searchtext").attr("value", searchtext);
+		addSearchResultsMediaItems(searchtext);
+		return
+	}
+	var initialItems = [
 		'tt0093870',
 		'tt0944947',
 		'tt0079501',
 		'tt1375666',
 	];
-
 	$.each(initialItems, function(index, id) {
 		addMediaItem(id);
 	});
-	$("#searchtext").attr("value", getUrlVars().searchtext);
-	addSearchResultsMediaItems(getUrlVars().searchtext);
 });
+
 
 </script>
 </body>
