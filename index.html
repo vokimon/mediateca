@@ -470,9 +470,15 @@ function loadMediaItem(id) {
 	var item = $('.mediaitem#'+id);
 	$.getJSON("http://www.omdbapi.com/?r=JSON&i="+encodeURIComponent(id), function(result){
 //		console.log("Loading data for "+id);
-		if (result.Poster != "N/A" )
-			$(item).find("img").attr("src",
-				baseproxyurl+"imdbimage.php?url="+encodeURIComponent(result.Poster));
+		var poster = $(item).find("img");
+		if (result.Poster != "N/A" ) {
+			poster.attr("onerror", 'this.onerror = null; this.src="nocover-movie.png"');
+			poster.attr("src",
+					baseproxyurl+"imdbimage.php?url="+encodeURIComponent(result.Poster));
+				}
+		else {
+			poster.attr("src","nocover-movie.png");
+		}
 		$(item).find(".mediadescription").html(result.Title+" ["+ result.Type +"] ("+result.Year+")");
 	}).fail(function() {
 		console.log("Load item "+id+" failed");
@@ -484,7 +490,7 @@ function addMediaItem(id) {
 //	console.log("Adding widget for " + id );
 	$(".itembrowser").append(
 "	<div class='mediaitem' id='"+id+"'>\n"+
-"		<img class='poster' src='bad.png'/>\n"+
+"		<img class='poster' src='loading.gif'>\n"+
 "		<div class='mediatitle'>\n"+
 "		</div>\n"+
 "		<div class='mediadescription'>\n"+
