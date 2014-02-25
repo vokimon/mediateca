@@ -275,7 +275,7 @@
 			display: block;
 			margin-right: auto;
 			margin-left: auto;
-			top: 3%:
+			top: 3%;
 			bottom: 3%;
 			left: 0;
 			right: 0;
@@ -402,8 +402,17 @@ function showExtendedInfo(id)
 			if (value == "N/A") return;
 			info.append("<li><b>"+key+":</b> "+value+"</li>");
 		});
-		$(".extendedinfoimage").attr("src",
-			baseproxyurl+"imdbimage.php?url="+encodeURIComponent(result.Poster));
+		var poster = $(".extendedinfoimage")
+		if (result.Poster != "N/A" ) {
+			poster.attr("onerror", 'this.onerror = null; this.src="nocover-movie.png"');
+			poster.attr("src",
+					baseproxyurl+"imdbimage.php?url="+encodeURIComponent(result.Poster));
+				}
+		else {
+			poster.attr("src","nocover-movie.png");
+		}
+
+
 		$(".extendedinfotitle").text(result.Title + " ("+result.Year+") ["+result.Type+"]");
 		$(".extendedinfoactions .play").click( function (event) { showPlayer(id) });
 	});
