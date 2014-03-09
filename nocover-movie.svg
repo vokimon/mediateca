@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,18 +58,14 @@
      transform="translate(0,-25)">
     <text
        xml:space="preserve"
-       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#611200;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Medium;opacity:0.63139931999999999"
+       style="font-size:56px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:0.63139936;fill:#611200;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Medium"
        x="153.75"
        y="85"
        id="text4998"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan5000"
          x="153.75"
-         y="85">No cover</tspan><tspan
-         sodipodi:role="line"
-         x="153.75"
-         y="155"
-         id="tspan5002">found</tspan></text>
+         y="85"
+         id="tspan5002">No cover</tspan></text>
   </g>
 </svg>
