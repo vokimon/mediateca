@@ -501,7 +501,77 @@ function search(type, query) {
 .extendedinfo .extendedinforating,
 .extendedinfo .extendedinfodata
 {
+	display: block;
+}
+.extendedinforating {
+	padding: 10px;
+	display: block;
+}
+.extendedinfoimage {
+	float: right;
+	display: block;
+	height: auto;
+	width: 800px;
+	max-width: 30%;
+	max-height: 100%;
+	box-shadow: 2pt 2pt 4pt black;
+}
+.extendedinfotitle {
+	color: #733;
+	padding: 15px 20px;
+	background-color: #111;
+	border-radius: 10px;
+}
+.extendedinfo b {
+	color: #863;
+}
+.extendedinfoactions {
+	float: right;
+	display: block;
+	left: 10%;
+	right: 10%;
+	bottom: 0;
+	margin-bottom: 0;
+	position: absolute;
+	text-align: center;
+	vertical-align: bottom;
+	padding: 2ex;
+	height: 8ex;
+	border-radius: 4ex;
+	border: 6px solid #151010;
+	background-color: #222;
+	content: "&nbsp;";
+	overflow: hidden;
+}
+.extendedinfoactions .button {
+	content: "&nbsp;";
 	display: inline-block;
+	padding: 0;
+	width: 6ex;
+	height: 6ex;
+	margin-left: auto;
+	margin-right: auto;
+	bottom: 0;
+	margin: 0 16px;
+	border: 8px solid #481818;
+	border-radius: 8px;
+	background-color: #181818;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	opacity: 0.7;
+}
+.extendedinfoactions .button.play {
+	background-image: url('icon-play.svg');
+}
+.extendedinfoactions .button.info {
+	background-image: url('icon-info.svg');
+}
+.extendedinfoactions .button.download {
+	background-image: url('icon-download.svg');
+}
+.extendedinfoactions .button:hover {
+	opacity: 1;
 }
 
 </style>
@@ -520,6 +590,37 @@ function search(type, query) {
 		<ul class='extendedinfodata' ></ul>
 	</div>
 </div>
+
+<style>
+video {
+	top:0;
+	bottom:0;
+	display: block;
+	width: 90%;
+	height: 90%;
+	margin: auto;
+}
+</style>
+
+
+<div  id='playvideo' class='playvideo' data-role="page">
+	<span class='close-icon' onClick='hidePlayer()'></span>
+	<video preload='none' controls poster='logo-guifibaix-mediateca.png'>
+<!--			<source
+			src='http://video.webmfiles.org/elephants-dream.webm'
+			src='http://video.webmfiles.org/big-buck-bunny_trailer.webm'
+			src='http://videos-cdn.mozilla.net/serv/webmademovies/Moz_Doc_0329_GetInvolved_ST.webm'
+			type='video/webm'
+			media="all and (max-width:480px)"
+			/>
+-->
+	<source
+			src='http://videos-cdn.mozilla.net/serv/webmademovies/Moz_Doc_0329_GetInvolved_ST.webm'
+			type='video/webm'
+			/>
+	</video>
+</div>
+
 
 
 <div data-role="page" data-theme="a" id="fullsize" >
@@ -549,7 +650,7 @@ function search(type, query) {
 	</header>
 	<div class='itembrowser2'>
 	</div>
-	<div  id='playvideo' class='playvideo'>
+	<div  id='playvideo2' class='playvideo'>
 		<span class='close-icon' onClick='hidePlayer()'></span>
 		<video preload='none' controls poster='logo-guifibaix-mediateca.png'>
 <!--			<source
@@ -584,6 +685,7 @@ function search(type, query) {
 </div>
 
 <script type="text/javascript">
+
 
 function showExtendedInfo(id)
 {
@@ -629,13 +731,13 @@ function showExtendedInfo(id)
 			poster.attr("src","nocover-movie.png");
 		}
 		$(".extendedinfotitle").text(result.Title + " ("+result.Year+") ["+result.Type+"]");
-		$(".extendedinfoactions .play").click( function (event) { showPlayer(id) });
+		$(".extendedinfoactions .play").click( function (event) { playVideo(id) });
 	});
 }
 
-function showPlayer(id)
+function playVideo(id)
 {
-	$(".playvideo").addClass("show");
+	$.mobile.navigate("#playvideo");
 }
 
 function hidePlayer()
@@ -699,8 +801,9 @@ function loadMediaItem(id) {
 			"data-episode": result.Episode,
 			"data-poster": result.Poster,
 			"data-genre": result.Genre,
+			"data-director": result.Director,
 			"data-writer": result.Writer,
-			"data-writer": result.Actors,
+			"data-actors": result.Actors,
 			"data-plot": result.Plot,
 			"data-language": result.Language,
 			"data-country": result.Country,
@@ -730,7 +833,7 @@ function addMediaItem(id) {
 //	console.log("Adding widget for " + id );
 	$(".itembrowser").append(
 "	<div class='mediaitem' id='"+id+"'>\n"+
-"		<a href='#movieinfo'>\n"+
+"		<a href='#movieinfo' data-transition='slideup' data-role='button'>\n"+
 "		<img class='poster' src='loading.gif'>\n"+
 "		<div class='mediatitle'>\n"+
 "		</div>\n"+
@@ -824,8 +927,11 @@ $(function () {
 
 $(document).keyup(function(e) {
 	if (e.keyCode == 27) {
-		if ($(".playvideo.show").length) return hidePlayer();
-		if ($(".extendedinfo.show").length) return closeExtendedInfo();
+		var currentPage = $.mobile.activePage.attr('id');
+		if (currentPage == "movieinfo") $.mobile.back();
+		if (currentPage == "playvideo") $.mobile.back();
+//		if ($(".playvideo.show").length) return hidePlayer();
+//		if ($(".extendedinfo.show").length) return closeExtendedInfo();
 	}
 });
 
