@@ -10,7 +10,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="300"
-   height="400"
+   height="450"
    id="svg4989"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -27,7 +27,7 @@
      inkscape:pageopacity="0.36470588"
      inkscape:pageshadow="2"
      inkscape:zoom="0.8"
-     inkscape:cx="-49.375"
+     inkscape:cx="-138.75"
      inkscape:cy="210"
      inkscape:document-units="pt"
      inkscape:current-layer="layer1"
@@ -55,17 +55,17 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-25)">
+     transform="translate(0,25)">
     <text
        xml:space="preserve"
        style="font-size:56px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:0.63139936;fill:#611200;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Medium"
        x="153.75"
-       y="85"
+       y="41"
        id="text4998"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          x="153.75"
-         y="85"
+         y="41"
          id="tspan5002">No cover</tspan></text>
   </g>
 </svg>
