@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang='es'>
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf-8" />
 	<title>mediateca guifibaix</title>
-	<meta content="">
+	<meta content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 <!--	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>-->
 <!--	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>-->
+<!--	<script src="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>-->
 <!--	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />-->
+<!--	<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">-->
+	<link rel="stylesheet" href="jquery.mobile-1.4.2.min.css">
+	<link rel="stylesheet" href="jquery-mobile-theme-mediateca/themes/mediateca.min.css" />
+	<link rel="stylesheet" href="jquery-mobile-theme-mediateca/themes/jquery.mobile.icons.min.css" />
+<!--	<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css" /> -->
 	<link rel="stylesheet" href="jquery-ui-1.10.4.css" />
 	<link rel="stylesheet" href="rating/rating.css" />
+	<link rel="stylesheet" href="iconselect.css" />
 	<script src="jquery-2.1.0.min.js"></script>
-	<script src="jquery-ui-1.10.4.min.js"></script>
+	<script src="jquery.mobile-1.4.2.min.js"></script>
+	<script src="jquery-ui-1.10.4.min.js"></script>-
+	<script src="iconselect.js-1.0/iconselect.js"></script>-
 	<script src="rating/jquery.rating.js"></script>
+	<!--
+	
 	<style>
 		@keyframes fadein {
 			from {opacity: 0;}
@@ -44,16 +56,18 @@
 		}
 		header {
 			/*border: 1pt solid red;*/
+			padding-left: 15ex;
+/*
 			margin: 0;
-			padding-left: 12ex;
 			position: fixed;
 			top: 0;
 			left: 0;
 			right: 0;
 			z-index: 10;
+*/
 			background-color: #222222;
 			background-image: url('logo-guifibaix-mediateca.svg');
-			background-position: left;
+			background-position: left middle;
 			background-repeat: no-repeat;
 			background-size: 15ex auto;
 			min-height: 9ex;
@@ -96,6 +110,8 @@
 			margin-right: auto;
 			margin-left: auto;
 			width: 90%;
+			height: 100%;
+			overflow: auto;
 		}
 		.itembrowser .mediaitem {
 			position: relative;
@@ -318,12 +334,200 @@
 			background-size: contain;
 		}
 	</style>
+	-->
+	<style>
+		#mediatypelist li img {
+			display: block;
+			margin: auto;
+			padding: 0px;
+		}
+		#mediatypelist ul,
+		#mediatypelist ul li,
+		#mediatypelist ul li a
+		{
+			padding-bottom: 0px;
+			margin-bottom: 0px;
+			min-height: 3em;
+		}
+		.ui-li-thumb {
+			max-height: 18px;
+			max-width: 18px;
+		}
+
+		.itembrowser {
+			text-align: center;
+		}
+		.itembrowser .mediaitem {
+			display: inline-block;
+			position: relative;
+			border: 3pt solid black;
+			margin: 10px;
+			box-shadow: 2pt 3pt 6pt #500;
+			max-width: 40%;
+			max-height: 40%;
+			width: 200px;
+			height: auto;
+
+			background-image: url('logo-guifibaix-mediateca.svg');
+			background-color: #111;
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: contain;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		.itembrowser .mediaitem:before {
+			display:block;
+			position: relative;
+			content: "";
+			padding-bottom: 150%;
+			width: 100%;
+			height: 0;
+			overflow: hidden;
+		}
+		.itembrowser .mediaitem:hover {
+			box-shadow: 0pt 0pt 8pt #a7f;
+		}
+		.itembrowser .mediaitem img.poster {
+			/*border: 1pt solid red;*/
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			max-width: 100%;
+			max-height: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: auto;
+			margin-top: 0;
+		}
+		.itembrowser .mediaitem .mediadescription {
+			display: none;
+		}
+		.itembrowser .mediaitem:hover .mediadescription {
+			display: block;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			padding: 8px;
+			opacity: 0.8;
+			background-color: #333;
+			font-weight: bold;
+			color: #ff3;
+		}
+	</style>
 </head>
-<body>
+<body >
+
+<div data-role="page" id="homepage" >
+	<div data-role="header" data-position='fixed'>
+		<h1 style="background-position: 50% 50%; background-image: url(logo-guifibaix-mediateca.svg); background-repeat: no-repeat; background-size: auto 210%"></h1>
+		<a 
+			id="mediatype" 
+			href='#mediatypelist' 
+			data-role='button'
+			data-rel="popup"  
+			data-icon='arrow-d'	
+			data-iconpos='right'
+			value='movies'
+			>
+			<img title='Pelis' src="movie.svg" width='20px'>
+		</a>
+		<div id='mediatypelist' data-role="popup" data-theme="a">
+			<ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
+				<li data-role="divider">Tipo de medio</li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='movies'><img src="movie.svg" />Pelis</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='shows'><img src="show.svg" />Sèries</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='comics'><img src="comic.svg" />Comic</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='music'><img src="music.svg" />Música</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='books'><img src="book.svg" />Libros</a></li>
+			</ul>
+		</div>
+		<a
+			id='#sortchoser'
+			href='#sortlist'
+			data-role='button'
+			data-rel="popup"  
+			data-icon='arrow-d'
+			data-iconpos='right'
+			value="new"
+			>
+			<img title='Pelis' src="movie.svg" width='20px'>
+		</a>
+		<form id='searchform'>
+		<input type="search" name="q" id="mediasearch" value="" placeholder='Search...' data-clear-btn="true" data-inline="true" />
+		</form>
+	</div>
+	<div data-role="main">
+		<div class="itembrowser"></div>
+	</div>
+	<div data-role="footer"  data-position='fixed'>
+		<p>© 2014 GuifiBaix</p>
+	</div>
+</div>
+
+<script>
+function changeMediaType(element)
+{
+	var type = $(element).attr("value");
+	var image = $(element).find("img").attr("src");
+	var text = $(element).text();
+
+	var mediatype = $("#mediatype")
+	$(mediatype).attr("value",type);
+	$(mediatype).find("img").attr("src",image);
+	$(mediatype).find("img").attr("title",text);
+}
+$( "#searchform" ).submit(function( event ) {
+	search($("#mediatype").attr("value"), $("#mediasearch").val())
+	event.preventDefault();
+});
+function search(type, query) {
+	clearMediaItems();
+	addSearchResultsMediaItems(query);
+}
+</script>
+
+<style>
+.extendedinfo
+{
+	padding: 3% 3%;
+}
+.extendedinfo .extendedinfoimage,
+.extendedinfo .extendedinfotitle,
+.extendedinfo .extendedinforating,
+.extendedinfo .extendedinfodata
+{
+	display: inline-block;
+}
+
+</style>
+
+<div data-role="page" id="movieinfo" >
+	<div class="extendedinfo">
+		<a class='close-icon' onclick="closeExtendedInfo()"></a>
+		<img class="extendedinfoimage poster"></img>
+		<div class='extendedinfoactions'>
+			<div class='button play'></div>
+			<div class='button info'></div>
+			<div class='button download'></div>
+		</div>
+		<h2 class='extendedinfotitle'></h2>
+		<div class='extendedinforating'></div>
+		<ul class='extendedinfodata' ></ul>
+	</div>
+</div>
+
+
+<div data-role="page" data-theme="a" id="fullsize" >
+
 	<header>
 		<form class='search'>
-			<select id='searchkind' name='searchkind'>
-				<option value='movies'>Películas</option>
+<!-- 			<select id='searchkind' name='searchkind'> -->
+				<option value='movies' style="background-image:url(movie.svg)">Películas</option>
 				<option value='series'>Series</option>
 				<option value='documentary'>Documentales</option>
 				<option value='music'>Música</option>
@@ -343,7 +547,7 @@
 			</select>
 		</form>
 	</header>
-	<div class='itembrowser'>
+	<div class='itembrowser2'>
 	</div>
 	<div  id='playvideo' class='playvideo'>
 		<span class='close-icon' onClick='hidePlayer()'></span>
@@ -377,11 +581,13 @@
 	<footer class='footer'>
 		Mediateca GuifiBaix
 	</footer>
+</div>
 
 <script type="text/javascript">
 
 function showExtendedInfo(id)
 {
+	var target = $("#"+id);
 	$(".extendedinfoimage").attr("src","");
 	$(".extendedinfodata").empty();
 	$(".extendedinfo").addClass("show");
@@ -422,8 +628,6 @@ function showExtendedInfo(id)
 		else {
 			poster.attr("src","nocover-movie.png");
 		}
-
-
 		$(".extendedinfotitle").text(result.Title + " ("+result.Year+") ["+result.Type+"]");
 		$(".extendedinfoactions .play").click( function (event) { showPlayer(id) });
 	});
@@ -446,23 +650,22 @@ function closeExtendedInfo()
 
 
 $(function(){
-    $("#searchtext").focus(); //Focus on search field
-    $("#searchtext").autocomplete({
-        minLength: 0,
-        delay:5,
-        source: baseproxyurl+"imdbsuggest.php",
-        focus: function( event, ui ) {
-            $(this).val( ui.item.value );
-            return false;
-        },
-        select: function( event, ui ) {
-            $(this).val( ui.item.value );
-            return false;
-        }
-    }).data("ui-autocomplete")._renderItem = function( ul, item ) {
-        return $("<li></li>")
-            .data( "item.autocomplete", item )
-            .append(
+	$("#mediasearch").autocomplete({
+		minLength: 0,
+		delay:5,
+		source: baseproxyurl+"imdbsuggest.php",
+		focus: function( event, ui ) {
+			$(this).val( ui.item.value );
+			return false;
+		},
+		select: function( event, ui ) {
+			$(this).val( ui.item.value );
+			return false;
+		}
+	}).data("ui-autocomplete")._renderItem = function( ul, item ) {
+		return $("<li></li>")
+			.data( "item.autocomplete", item )
+			.append(
 				"<a>" +
 				(item.img?
 					"<img class='imdbImage' src='"+baseproxyurl+"imdbimage.php?url=" +
@@ -471,8 +674,9 @@ $(function(){
 				(item.cast?"<br /><span class='imdbCast'>" + item.cast + "</span>":"") +
 				"<div class='clear'></div>"+
 				"</a>" )
-            .appendTo( ul );
-    };
+			.appendTo( ul );
+	};
+	$("#mediasearch").focus(); //Focus on search field
 });
 
 var baseproxyurl="http://canvoki.net/mediateca/";
@@ -488,6 +692,24 @@ function loadMediaItem(id) {
 	var item = $('.mediaitem#'+id);
 	$.getJSON("http://www.omdbapi.com/?r=JSON&i="+encodeURIComponent(id), function(result){
 //		console.log("Loading data for "+id);
+		$(item).attr({
+			"data-title": result.Title,
+			"data-year": result.Year,
+			"data-type": result.Type,
+			"data-episode": result.Episode,
+			"data-poster": result.Poster,
+			"data-genre": result.Genre,
+			"data-writer": result.Writer,
+			"data-writer": result.Actors,
+			"data-plot": result.Plot,
+			"data-language": result.Language,
+			"data-country": result.Country,
+			"data-awards": result.Awards,
+			"data-duration": result.Runtime,
+			"data-audience": result.Rated,
+			"data-released": result.Released,
+			"data-rating": result.imdbRating,
+		});
 		var poster = $(item).find("img");
 		if (result.Poster != "N/A" ) {
 			poster.attr("onerror", 'this.onerror = null; this.src="nocover-movie.png"');
@@ -508,12 +730,14 @@ function addMediaItem(id) {
 //	console.log("Adding widget for " + id );
 	$(".itembrowser").append(
 "	<div class='mediaitem' id='"+id+"'>\n"+
+"		<a href='#movieinfo'>\n"+
 "		<img class='poster' src='loading.gif'>\n"+
 "		<div class='mediatitle'>\n"+
 "		</div>\n"+
 "		<div class='mediadescription'>\n"+
 "			Loading info...\n"+
 "		</div>\n"+
+"		</a>\n"+
 "	</div>\n"+
 	"")
 	$("#"+id).click(function(event) {
@@ -605,7 +829,7 @@ $(document).keyup(function(e) {
 	}
 });
 
-
 </script>
+
 </body>
 </html>
