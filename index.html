@@ -262,11 +262,11 @@ function search(type, query) {
 	</div>
 	<div data-role='ui-content' data-theme='b'>
 		<div class="extendedinfo">
-			<a class='close-icon' onclick="closeExtendedInfo()"></a>
 			<img class="extendedinfoimage poster"></img>
 			<h2 class='extendedinfotitle'></h2>
 			<div class='extendedinforating'><div class='rating'></div></div>
 			<ul class='extendedinfodata' ></ul>
+			<ul class='movieversions'></ul>
 		</div>
 	</div>
 	<div data-role='footer' data-position='fixed'>
@@ -307,7 +307,6 @@ video {
 	<a href=='#' class='ui-btn ui-icon-back ui-btn-corner-all ui-btn-icon-notext' data-rel='back'> </a>
 	<h1>Video Player</h1>
 	</div>
-	<span class='close-icon' onClick='hidePlayer()'></span>
 	<div class='playvideo' >
 	<video preload='none' controls poster='logo-guifibaix-mediateca.png'>
 <!--			<source
@@ -325,94 +324,22 @@ video {
 	</video>
 </div>
 
-<div data-role="page" data-theme="a" id="fullsize" >
-
-	<header>
-		<form class='search'>
-<!-- 			<select id='searchkind' name='searchkind'> -->
-				<option value='movies' style="background-image:url(movie.svg)">Películas</option>
-				<option value='series'>Series</option>
-				<option value='documentary'>Documentales</option>
-				<option value='music'>Música</option>
-				<option value='books'>Libros</option>
-				<option value='comics'>Cómics</option>
-				<input name="s" value="all" type="hidden" />
-			</select>
-			<input name='searchtext' id='searchtext' placeholder='search...'></input>
-			<input name="s" value="all" type="hidden" />
-			Ordena por:
-			<select name='searchorder'>
-				<option value='new'>Novedad</option>
-				<option value='popular'>Popularidad</option>
-				<option value='rated'>Valoración</option>
-				<option value='pending'>Las que aún no he visto</option>
-				<option value='preferred'>Mis preferidas</option>
-			</select>
-		</form>
-	</header>
-	<div class='itembrowser2'>
-	</div>
-	<div  id='playvideo2' class='playvideo'>
-		<span class='close-icon' onClick='hidePlayer()'></span>
-		<video preload='none' controls poster='logo-guifibaix-mediateca.png'>
-<!--			<source
-				src='http://video.webmfiles.org/elephants-dream.webm'
-				src='http://video.webmfiles.org/big-buck-bunny_trailer.webm'
-				src='http://videos-cdn.mozilla.net/serv/webmademovies/Moz_Doc_0329_GetInvolved_ST.webm'
-				type='video/webm'
-				media="all and (max-width:480px)"
-				/>
--->
-		<source
-				src='http://videos-cdn.mozilla.net/serv/webmademovies/Moz_Doc_0329_GetInvolved_ST.webm'
-				type='video/webm'
-				/>
-		</video>
-	</div>
-	<div class="extendedinfo">
-		<a class='close-icon' onclick="closeExtendedInfo()"></a>
-		<img class="extendedinfoimage poster"></img>
-		<h2 class='extendedinfotitle'></h2>
-		<div class='extendedinforating'></div>
-		<ul class='extendedinfodata' ></ul>
-		<div class='extendedinfoactions'>
-			<div class='button play'></div>
-			<div class='button info'></div>
-			<div class='button download'></div>
-		</div>
-	</div>
-	<footer class='footer'>
-		Mediateca GuifiBaix
-	</footer>
-</div>
-
 <script type="text/javascript">
 
-var attribute2Imdb = {
-	"data-title": "Title",
-	"data-year": "Year",
-	"data-type": "Type",
-	"data-episode": "Episode",
-	"data-poster": "Poster",
-	"data-genre": "Genre",
-	"data-director": "Director",
-	"data-writer": "Writer",
-	"data-actors": "Actors",
-	"data-plot": "Plot",
-	"data-language": "Language",
-	"data-country": "Country",
-	"data-awards": "Awards",
-	"data-duration": "Runtime",
-	"data-audience": "Rated",
-	"data-released": "Released",
-	"data-rating": "imdbRating",
-};
-
-var imdb2Attribute = {};
-
-$.each(attribute2Imdb, function (key, value) {
-	imdb2Attribute[value] = key;
-});
+function movieTorrents(target, id) {
+	var url = "http://yts.re/api/list.jsonp?callback=?&keywords="
+		+encodeURIComponent(id);
+	console.log("Loading torrents: "+id);
+	var query = $.getJSON(url, function(result){
+		if (! result.MovieCount ) return;
+		$.each(result.MovieList, function(i, movie) {
+			$(target).append($("<li/>").html(movie.TorrentHash+" "+movie.Quality));
+			console.log(movie);
+		});
+	}).fail(function() {
+		console.log("Load torrent "+id+" failed: JSON query failed "+url);
+	});
+}
 
 function setRating(widget, score, max=100)
 {
@@ -425,68 +352,55 @@ function showExtendedInfo(id)
 	var target = $("#"+id);
 	$(".extendedinfoimage").attr("src","");
 	$(".extendedinfodata").empty();
-	$(".extendedinfo").addClass("show");
+	$(".movieversions").empty();
 	
 	var result = $(target).data("omdb");
 	setRating(".extendedinfo .extendedinforating", 0);
-//	$.getJSON("http://www.omdbapi.com/?r=JSON&i="+encodeURIComponent(id), function(result){
-		var mutedkeys = [
-			"Title",
-			"Type",
-			"Year",
-			"imdbID",
-			"Poster",
-			"imdbRating",
-			"imdbVotes",
-			"Response",
-			"Metascore",
-		];
-		var sortedkeys = [
-			"Genre",
-			"Runtime",
-			"Country",
-			"Language",
-			"Plot",
-			"Director",
-			"Writer",
-			"Actors",
-		];
-		var info = $(".extendedinfodata");
-		$(info).empty();
-		$.each(sortedkeys, function(index, key) {
-			if (!(key in result)) return;
-			if (result[key] == "N/A") return;
-			info.append("<li><b>"+key+":</b> "+result[key]+"</li>");
-		});
-		$.each(result, function(key, value) {
-			if ($.inArray(key, sortedkeys)!=-1) return;
-			if ($.inArray(key, mutedkeys)!=-1) return;
-			if (value == "N/A") return;
-			info.append("<li><b>"+key+":</b> "+value+"</li>");
-		});
-		var poster = $(".extendedinfoimage")
-		loadPoster(poster, result.Poster);
-		$(".extendedinfotitle").text(result.Title + " ("+result.Year+") ["+result.Type+"]");
-		$(".extendedinfoactions .play").click( function (event) { playVideo(id) });
-		console.log(+result.imdbRating);
-	setRating(".extendedinfo .extendedinforating", +result.imdbRating/10*100);
-//	});
+	var mutedkeys = [
+		"Title",
+		"Type",
+		"Year",
+		"imdbID",
+		"Poster",
+		"imdbRating",
+		"imdbVotes",
+		"Response",
+		"Metascore",
+	];
+	var sortedkeys = [
+		"Genre",
+		"Runtime",
+		"Country",
+		"Language",
+		"Plot",
+		"Director",
+		"Writer",
+		"Actors",
+	];
+	var info = $(".extendedinfodata");
+	$(info).empty();
+	$.each(sortedkeys, function(index, key) {
+		if (!(key in result)) return;
+		if (result[key] == "N/A") return;
+		info.append("<li><b>"+key+":</b> "+result[key]+"</li>");
+	});
+	$.each(result, function(key, value) {
+		if ($.inArray(key, sortedkeys)!=-1) return;
+		if ($.inArray(key, mutedkeys)!=-1) return;
+		if (value == "N/A") return;
+		info.append("<li><b>"+key+":</b> "+value+"</li>");
+	});
+	var poster = $(".extendedinfoimage")
+	loadPoster(poster, result.Poster);
+	$(".extendedinfotitle").text(result.Title + " ("+result.Year+") ["+result.Type+"]");
+	movieTorrents($(".movieversions"), id);
+	$(".extendedinfoactions .play").click( function (event) { playVideo(id) });
+setRating(".extendedinfo .extendedinforating", +result.imdbRating/10*100);
 }
 
 function playVideo(id)
 {
 	$.mobile.navigate("#playvideo");
-}
-
-function hidePlayer()
-{
-	// TODO: Stop player
-	$(".playvideo").removeClass("show");
-}
-
-function closeExtendedInfo()
-{
-	$(".extendedinfo").removeClass("show");
 }
 
 
@@ -659,8 +573,6 @@ $(document).keyup(function(e) {
 		var currentPage = $.mobile.activePage.attr('id');
 		if      (currentPage == "playvideo") $.mobile.back();
 		else if (currentPage == "movieinfo") $.mobile.back();
-//		if ($(".playvideo.show").length) return hidePlayer();
-//		if ($(".extendedinfo.show").length) return closeExtendedInfo();
 	}
 });
 
