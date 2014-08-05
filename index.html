@@ -33,7 +33,7 @@
 			margin-bottom: 0px;
 			min-height: 3em;
 		}
-		.ui-li-thumb {
+		#mediatypelist .ui-li-thumb {
 			max-height: 18px;
 			max-width: 18px;
 		}
@@ -53,7 +53,7 @@
 			width: 200px;
 			height: auto;
 
-			background-image: url('logo-guifibaix-mediateca.svg');
+			background-image: url('media/logo-guifibaix-mediateca.svg');
 			background-color: #111;
 			background-position: center center;
 			background-repeat: no-repeat;
@@ -103,14 +103,18 @@
 			font-weight: bold;
 			color: #ff3;
 		}
-		
-		-->
+		#homepage h1 {
+			background-position: 50% 50%;
+			background-image: url(media/logo-guifibaix-mediateca.svg);
+			background-repeat: no-repeat;
+			background-size: auto 210%;
+		}
 	</style>
 </head>
 <body >
 <div data-role="page" id="homepage">
 	<div data-role="header" data-position='fixed'>
-		<h1 style="background-position: 50% 50%; background-image: url(logo-guifibaix-mediateca.svg); background-repeat: no-repeat; background-size: auto 210%"></h1>
+		<h1></h1>
 		<a 
 			id="mediatype" 
 			href='#mediatypelist' 
@@ -120,16 +124,17 @@
 			data-iconpos='right'
 			value='movies'
 			>
-			<img title='Pelis' src="movie.svg" width='20px'>
+			<img title='Pelis' src="media/movie.svg" width='20px'>
 		</a>
 		<div id='mediatypelist' data-role="popup" data-theme="a">
 			<ul data-role="listview" data-inset="true" style="min-width:230px;">
 				<li data-role="divider">Tipo de medio</li>
-				<li><a href='#homepage' onclick="changeMediaType(this)" value='movies'><img src="movie.svg" />Pelis</a></li>
-				<li><a href='#homepage' onclick="changeMediaType(this)" value='shows'><img src="show.svg" />Sèries</a></li>
-				<li><a href='#homepage' onclick="changeMediaType(this)" value='comics'><img src="comic.svg" />Comic</a></li>
-				<li><a href='#homepage' onclick="changeMediaType(this)" value='music'><img src="music.svg" />Música</a></li>
-				<li><a href='#homepage' onclick="changeMediaType(this)" value='books'><img src="book.svg" />Libros</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='movies'><img src="media/movie.svg" />Pelis</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='shows'><img src="media/show.svg" />Séries</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='comics'><img src="media/comic.svg" />Comic</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='music'><img src="media/music.svg" />Música</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='books'><img src="media/book.svg" />Libros</a></li>
+				<li><a href='#homepage' onclick="changeMediaType(this)" value='games'><img src="media/game.svg" />Juegos</a></li>
 			</ul>
 		</div>
 		<a
@@ -141,7 +146,7 @@
 			data-iconpos='right'
 			value="new"
 			>
-			<img title='Pelis' src="movie.svg" width='20px'>
+			<img title='Pelis' src="media/movie.svg" width='20px'>
 		</a>
 		<form id='searchform'>
 		<input type="search" name="q" id="mediasearch" value="" placeholder='Search...' data-clear-btn="true" data-inline="true" />
@@ -183,14 +188,10 @@ function search(type, query) {
 	padding: 3% 3%;
 }
 .extendedinfo .extendedinfoimage,
-.extendedinfo .extendedinfotitle,
+.extendedinfo .extendedinfoheader,
 .extendedinfo .extendedinforating,
 .extendedinfo .extendedinfodata
 {
-	display: block;
-}
-.extendedinforating {
-	padding: 10px;
 	display: block;
 }
 .extendedinfoimage {
@@ -201,25 +202,38 @@ function search(type, query) {
 	max-width: 30%;
 	max-height: 100%;
 	box-shadow: 2pt 2pt 4pt black;
+	margin-left: 1em;
 }
-.extendedinfotitle {
-	color: #733;
+.extendedinfoheader {
+	color: #b64;
 	padding: 15px 20px;
-	background-color: #111;
+	background-color: #311;
 	border-radius: 10px;
+	border: 1px #411 solid;
+	box-shadow: 0pt 0pt 4pt #755;
+	text-shadow: 2pt 2pt 4pt black;
+}
+.extendedinfoheader .extendedinfotype {
+	height: 1em;
+}
+.extendedinfoheader .extendedinfoyear {
+	display: inline-block;
+	color: #46f;
+	color: #711;
 }
 .extendedinfo b {
-	color: #863;
+	color: #963;
 }
 
 .extendedinfo .extendedinforating {
+	display: inline-block;
 	position: relative;
-	width: 10em;
+	width: 6em;
 	max-width: 40%;
 	min-width: 5em;
 	margin: 0;
 	padding: 0;
-	background-image: url("star-empty.svg");
+	background-image: url("media/star-empty.svg");
 	background-repeat: repeat-x;
 	background-position: left center;
 	background-size: auto 100%;
@@ -233,21 +247,41 @@ function search(type, query) {
 	padding-top: 20%; /* percent for one star of all of them */
 	padding-left: 0%; /* percent of the stars */
 	background: inherit;
-	background-image: url("star.svg");
+	background-image: url("media/star.svg");
 }
 .extendedinfo .extendedinforating:hover .rating {
 	padding-left: 100%;
-	background-image: url("star-active.svg");
+	background-image: url("media/star-active.svg");
 }
 
+.extendedinfoactions {
+	text-align: center;
+}
+.extendedinfoactions .button:before {
+	position: relative;
+	padding-top: 100%;
+}
+.extendedinfoactions .button {
+	position: relative;
+	background-position: 50% 50%;
+	background-size: 90%;
+	background-color: #111;
+	background-repeat: no-repeat;
+	margin-left: 20px;
+	margin-right: 20px;
+	min-height: 40%;
+	width: 30px;
+	height: 30px;
+	max-width: 25%;
+}
 .extendedinfoactions .button.play {
-	background-image: url('icon-play.svg');
+	background-image: url('media/icon-play.svg');
 }
 .extendedinfoactions .button.info {
-	background-image: url('icon-info.svg');
+	background-image: url('media/icon-info.svg');
 }
 .extendedinfoactions .button.download {
-	background-image: url('icon-download.svg');
+	background-image: url('media/icon-download.svg');
 }
 .extendedinfoactions .button:hover {
 	opacity: 1;
@@ -257,24 +291,42 @@ function search(type, query) {
 
 <div data-role="page" id="movieinfo"  data-title="Movie information">
 	<div data-role='header' data-position='fixed'>
-	<a href=='#' class='ui-btn ui-icon-back ui-btn-corner-all ui-btn-icon-notext' data-rel='back'> </a>
-	<h1>Information</h1>
+		<a href=='#' class='ui-btn ui-icon-back ui-btn-corner-all ui-btn-icon-notext' data-rel='back'> </a>
+		<h1>Information</h1>
 	</div>
-	<div data-role='ui-content' data-theme='b'>
+	<div data-role="main">
 		<div class="extendedinfo">
 			<img class="extendedinfoimage poster"></img>
-			<h2 class='extendedinfotitle'></h2>
-			<div class='extendedinforating'><div class='rating'></div></div>
+			<h2 class='extendedinfoheader'>
+				<img class='extendedinfotype' src='media/movie.svg'>
+				<span class='extendedinfotitle'>Title</span>
+				<span class='extendedinfoyear'>(year)</span>
+				<div class='extendedinforating'><div class='rating'></div></div>
+			</h2>
 			<ul class='extendedinfodata' ></ul>
-			<ul class='movieversions'></ul>
+			<div class='versions'>
+				<h3>Versiones disponibles:</h3>
+				<ul class='movieversions' data-role="listview" data-inset="true">
+					<li><a href=''>cosa 1</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<div data-role='footer' data-position='fixed'>
 		<div data-role='toolbar' class='extendedinfoactions'>
-			<a href="" class='ui-btn ui-btn-notext ui-icon-caret-r button play'></a>
-			<a href="" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-notext ui-icon-play button play"></a>
-			<a href="http://imdb.com" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-notext ui-icon-info button info"></a>
-			<a href="" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-notext ui-icon-arrow-d button download"></a>
+			<a
+				href=""
+				class='ui-btn ui-shadow ui-corner-all button play' 
+				data-transition='slidedown'
+				></a>
+			<a 
+				href="http://imdb.com" 
+				class="ui-btn ui-shadow ui-corner-all button info"
+				></a>
+			<a
+				href=""
+				class="ui-btn ui-shadow ui-corner-all button download"
+				></a>
 		</div>
 	</div>
 </div>
@@ -304,11 +356,11 @@ video {
 
 <div  id='playvideo' data-role="page">
 	<div data-role='header' data-position='fixed' data-fullscreen='true'>
-	<a href=='#' class='ui-btn ui-icon-back ui-btn-corner-all ui-btn-icon-notext' data-rel='back'> </a>
+	<a href=='' class='ui-btn ui-icon-back ui-btn-corner-all ui-btn-icon-notext' data-rel='back'> </a>
 	<h1>Video Player</h1>
 	</div>
 	<div class='playvideo' >
-	<video preload='none' controls poster='logo-guifibaix-mediateca.png'>
+	<video preload='none' controls poster='media/logo-guifibaix-mediateca.png'>
 <!--			<source
 			src='http://video.webmfiles.org/elephants-dream.webm'
 			src='http://video.webmfiles.org/big-buck-bunny_trailer.webm'
@@ -326,31 +378,13 @@ video {
 
 <script type="text/javascript">
 
-function movieTorrents(target, id) {
-	var url = "http://yts.re/api/list.jsonp?callback=?&keywords="
-		+encodeURIComponent(id);
-	console.log("Loading torrents: "+id);
-	var query = $.getJSON(url, function(result){
-		if (! result.MovieCount ) return;
-		$.each(result.MovieList, function(i, movie) {
-			$(target).append($("<li/>").html(movie.TorrentHash+" "+movie.Quality));
-			console.log(movie);
-		});
-	}).fail(function() {
-		console.log("Load torrent "+id+" failed: JSON query failed "+url);
-	});
-}
-
-function setRating(widget, score, max=100)
-{
-	$(widget).attr("title", score+" / "+max)
-	$(widget).find(".rating").css("padding-left", score/max*100+"%");
-}
-
 function showExtendedInfo(id)
 {
 	var target = $("#"+id);
 	$(".extendedinfoimage").attr("src","");
+	$(".extendedinfotype").attr("src","");
+	$(".extendedinfotitle").text("No title");
+	$(".extendedinfoyear").text("(No year)");
 	$(".extendedinfodata").empty();
 	$(".movieversions").empty();
 	
@@ -376,6 +410,7 @@ function showExtendedInfo(id)
 		"Director",
 		"Writer",
 		"Actors",
+		"Seasons",
 	];
 	var info = $(".extendedinfodata");
 	$(info).empty();
@@ -392,11 +427,48 @@ function showExtendedInfo(id)
 	});
 	var poster = $(".extendedinfoimage")
 	loadPoster(poster, result.Poster);
-	$(".extendedinfotitle").text(result.Title + " ("+result.Year+") ["+result.Type+"]");
+	var typeIcons = {
+		'movie': "media/movie.svg",
+		'series': "media/show.svg",
+		'game': "media/game.svg",
+	};
+	$(".extendedinfotype").attr('src', typeIcons[result.Type]);
+	$(".extendedinfotitle").text(result.Title);
+	$(".extendedinfoyear").text("("+result.Year+")");
+	setRating(".extendedinfo .extendedinforating", +result.imdbRating/10*100);
 	movieTorrents($(".movieversions"), id);
 	$(".extendedinfoactions .play").click( function (event) { playVideo(id) });
-setRating(".extendedinfo .extendedinforating", +result.imdbRating/10*100);
+	setImdbLink(id);
 }
+
+function setImdbLink(id)
+{
+	$(".extendedinfoactions .info").attr("href", "http://imdb.com/title/"+id+"/");
+}
+
+function movieTorrents(target, id) {
+	var url = "http://yts.re/api/list.jsonp?callback=?&keywords="
+		+encodeURIComponent(id);
+	console.log("Loading torrents for: "+id);
+	var query = $.getJSON(url, function(result){
+		console.log(result);
+		if (! result.MovieCount ) return;
+		$.each(result.MovieList, function(i, movie) {
+			$(target).append("<li><a  href='"+movie.TorrentUrl+"'>"+movie.Quality+"</li>");
+			console.log(movie);
+		});
+		$(target).listview("refresh");
+	}).fail(function() {
+		console.log("Load torrent "+id+" failed: JSON query failed "+url);
+	});
+}
+
+function setRating(widget, score, max=100)
+{
+	$(widget).attr("title", score+" / "+max)
+	$(widget).find(".rating").css("padding-left", score/max*100+"%");
+}
+
 
 function playVideo(id)
 {
@@ -444,12 +516,12 @@ function clearMediaItems() {
 
 function loadPoster(poster, uri) {
 	if (uri != "N/A" ) {
-		poster.attr("onerror", 'this.onerror = null; this.src="nocover-movie.png"');
+		poster.attr("onerror", 'this.onerror = null; this.src="media/nocover-movie.png"');
 		poster.attr("src",
 				baseproxyurl+"imdbimage.php?url="+encodeURIComponent(uri));
 			}
 	else {
-		poster.attr("src","nocover-movie.png");
+		poster.attr("src","media/nocover-movie.png");
 	}
 }
 
@@ -470,15 +542,14 @@ function loadMediaItem(id) {
 		$(item).remove();
 		console.log("Load item "+id+" failed: JSON query failed");
 	});
-	// TODO: 
+	// TODO: add to a pending list
 }
 
 function addMediaItem(id) {
-//	console.log("Adding widget for " + id );
 	$(".itembrowser").append(
 "	<div class='mediaitem' id='"+id+"'>\n"+
 "		<a href='#movieinfo' data-transition='slideup' >\n"+
-"		<img class='poster' src='loading.gif'>\n"+
+"		<img class='poster' src='media/loading.gif'>\n"+
 "		<div class='mediatitle'>\n"+
 "		</div>\n"+
 "		<div class='mediadescription'>\n"+
@@ -491,7 +562,6 @@ function addMediaItem(id) {
 		showExtendedInfo(id);
 	});
 	loadMediaItem(id);
-//	console.log("Added widget for " + id );
 }
 
 function proxiedCall(uri, done, settings)
@@ -569,11 +639,14 @@ $(function () {
 });
 
 $(document).keyup(function(e) {
-	if (e.type=="¡keyup" && e.keyCode == 27) {
+	if (e.type=="keyup" && e.keyCode == 27) {
 		var currentPage = $.mobile.activePage.attr('id');
+		console.log("Escaping from "+currentPage);
 		if      (currentPage == "playvideo") $.mobile.back();
 		else if (currentPage == "movieinfo") $.mobile.back();
+		return false;
 	}
+	return true;
 });
 
 </script>
