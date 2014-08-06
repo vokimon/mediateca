@@ -267,8 +267,8 @@ function search(type, query) {
 	background-size: 90%;
 	background-color: #111;
 	background-repeat: no-repeat;
-	margin-left: 20px;
-	margin-right: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
 	min-height: 40%;
 	width: 30px;
 	height: 30px;
@@ -463,8 +463,9 @@ function movieTorrents(target, id) {
 	});
 }
 
-function setRating(widget, score, max=100)
+function setRating(widget, score, max)
 {
+	if (max==undefined) max=100;
 	$(widget).attr("title", score+" / "+max)
 	$(widget).find(".rating").css("padding-left", score/max*100+"%");
 }
